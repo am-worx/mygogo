@@ -16,10 +16,8 @@
   	var Person = Backbone.Model.extend({});
   	var PhoneBook = Backbone.Collection.extend({
   		model : Person,
-  		url : 'js/phonebook.json',
-      syncCollection : function() {
-          Backbone.sync('update', this);
-        }
+  		// url : 'js/phonebook.json',
+      url : 'api2.php'
   	});
 
   	var phoneBook = new PhoneBook;
@@ -77,13 +75,18 @@
         }, 'html');
       },
       saveSubmit : function(e) {
-        //
-        console.log('save');
-        phoneBook.fetch({data:{
-          id:$('#id').text(),
+        e.preventDefault();
+
+        var changeModel = phoneBook.get($('#personId').val());
+        console.log('save', changeModel);
+
+        changeModel.set({
+          id:$('#personId').val(),
           name:$('#personName').val(),
           tel:$('#personTel').val()
-        },type:'POST' });
+        });
+
+        Backbone.sync('update', phoneBook);
 
         console.log('PB', phoneBook);
       }
