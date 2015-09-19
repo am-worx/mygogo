@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Megogo</title>
+    <script src="js/jquery-min.js"></script>
+    <script src="js/underscore-min.js"></script>
+  	<script src="js/backbone-min.js"></script>
+  </head>
+  <body>
+    <div id="phonebook"></div>
+  </body>
+  <script>
+  	var Person = Backbone.Model.extend({});
+  	var PhoneBook = Backbone.Collection.extend({
+  		model : Person,
+  		url : 'js/phonebook.json'
+  	});
+
+  	var phoneBook = new PhoneBook;
+
+		console.log('2', phoneBook);
+
+		var PhoneBookView = Backbone.View.extend({
+			el : '#phonebook',
+			initialize : function() {
+		    /*this.listenTo(this.model, "change", this.render);*/
+		    this.render();
+		  }, 
+		  render : function() {
+		  	var coll = phoneBook.toJSON();
+		  	console.log('coll ', coll, phoneBook);
+		    return this;
+		  }
+		});
+
+		new PhoneBookView();
+
+  </script>
+</html>
