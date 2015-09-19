@@ -13,7 +13,9 @@
   <script src="js/router.js"></script>
 
   <script>
-  	var Person = Backbone.Model.extend({});
+  	var Person = Backbone.Model.extend({
+      url : 'api2.php'
+    });
   	var PhoneBook = Backbone.Collection.extend({
   		model : Person,
   		// url : 'js/phonebook.json',
@@ -25,8 +27,6 @@
   	phoneBook.fetch({reset : true});
 
 		phoneBook.bind('reset', function () { console.log('phoneBook'); });
-
-
 
 		var PhoneBookView = Backbone.View.extend({
       el: "body",
@@ -52,8 +52,6 @@
       }
     });
 
-
-
     var EditPersonView = Backbone.View.extend({
       el: 'body',
       initialize : function(params){
@@ -62,7 +60,7 @@
         self.render();
       },
       events : {
-        'click .action-save-submit' : 'saveSubmit'
+        'click .action-save-changes' : 'saveChanges'
       },
       render: function(e) {
         var self = this;
@@ -74,21 +72,24 @@
             $(self.el).html(template({person : person.toJSON()}));  
         }, 'html');
       },
-      saveSubmit : function(e) {
+      saveChanges : function(e) {
         e.preventDefault();
 
         var changeModel = phoneBook.get($('#personId').val());
-        console.log('save', changeModel);
 
         changeModel.set({
-          id:$('#personId').val(),
           name:$('#personName').val(),
           tel:$('#personTel').val()
         });
 
-        Backbone.sync('update', phoneBook);
+        var data = {
+          id:changeModel.get('id'),
+          name:changeModel.get('name'),
+          tel:changeModel.get('tel')
+        };
 
-        console.log('PB', phoneBook);
+        Backbone.ajax = $.post(changeModel.url, data);
+        //Backbone.sync('update', changeModel);
       }
     });
 
