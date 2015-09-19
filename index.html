@@ -2,13 +2,16 @@
 <html>
   <head>
     <title>Megogo</title>
-    <script src="js/jquery-min.js"></script>
-    <script src="js/underscore-min.js"></script>
-  	<script src="js/backbone-min.js"></script>
   </head>
   <body>
     <div id="phonebook"></div>
   </body>
+
+  <script src="js/jquery-min.js"></script>
+  <script src="js/underscore-min.js"></script>
+  <script src="js/backbone-min.js"></script>
+  <script src="js/router.js"></script>
+
   <script>
   	var Person = Backbone.Model.extend({});
   	var PhoneBook = Backbone.Collection.extend({
@@ -23,7 +26,7 @@
 		phoneBook.bind('reset', function () { console.log(phoneBook); });
 
 		var PhoneBookView = Backbone.View.extend({
-      el: "#phonebook",
+      el: "body",
       initialize : function(){
         var self = this;
         self.render();
@@ -69,7 +72,9 @@
       },
     });
 
-		var x = new PhoneBookView();
+
+    new MainRouter();
+    Backbone.history.start({pushState: false});
 
 
   </script>
