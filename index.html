@@ -18,22 +18,30 @@
 
   	var phoneBook = new PhoneBook;
 
-		console.log('2', phoneBook);
+  	phoneBook.fetch({reset : true});
+
+		phoneBook.bind('reset', function () { console.log(phoneBook); });
 
 		var PhoneBookView = Backbone.View.extend({
-			el : '#phonebook',
-			initialize : function() {
-		    /*this.listenTo(this.model, "change", this.render);*/
-		    this.render();
-		  }, 
-		  render : function() {
-		  	var coll = phoneBook.toJSON();
-		  	console.log('coll ', coll, phoneBook);
-		    return this;
-		  }
-		});
+      el: "#phonebook",
+      initialize : function(){
 
-		new PhoneBookView();
+      },
+      render: function(e) {
+        var self = this;
+
+      	$.get('templates/phoneBook.html', function (data) {
+      			console.log(data);
+            template = _.template(data);
+            template.collection = [1,2,3,5];
+            $(self.el).html(template);  
+        }, 'html');
+      }
+    });
+
+		var x = new PhoneBookView();
+		x.render();
+
 
   </script>
 </html>
