@@ -1,8 +1,9 @@
 my template
 <ul>
-	<% _.each(collection, function(item, index) { %>
-		<li>
-			<%= item.name %> collection
+	<% _.each(collection, function(person) { %>
+		<li class="action-edit-person" data-id="<%= person.id %>" >
+			<%= person.name %> <br>
+			<%= person.tel %>
 		</li>
 	<% }) %>
 </ul>

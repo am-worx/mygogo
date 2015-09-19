@@ -28,15 +28,45 @@
         var self = this;
         self.render();
       },
+      events : {
+        'click .action-edit-person' : 'editPerson'
+      },
       render: function(e) {
         var self = this;
 
       	$.get('templates/phoneBook.html', function (data) {
-      			console.log(data);
             template = _.template(data);
             $(self.el).html(template({collection : phoneBook.toJSON()}));  
         }, 'html');
+      },
+      editPerson : function(e) {
+        console.log($(e.currentTarget).data('id'))
+
+        new EditPersonView({
+          id : $(e.currentTarget).data('id')
+        });
       }
+    });
+
+    var EditPersonView = Backbone.View.extend({
+      el: 'body',
+      initialize : function(params){
+        console.log('params', params);
+        var self = this;
+        for (param in params) this[param] = params[param];
+        self.render();
+      },
+      render: function(e) {
+        var self = this;
+
+        console.log(self.id);
+        var person = phoneBook.get(self.id);
+
+        $.get('templates/editPerson.html', function (data) {
+            template = _.template(data);
+            $(self.el).html(template({person : person.toJSON()}));  
+        }, 'html');
+      },
     });
 
 		var x = new PhoneBookView();
