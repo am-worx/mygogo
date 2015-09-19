@@ -25,7 +25,8 @@
 		var PhoneBookView = Backbone.View.extend({
       el: "#phonebook",
       initialize : function(){
-
+        var self = this;
+        self.render();
       },
       render: function(e) {
         var self = this;
@@ -33,14 +34,12 @@
       	$.get('templates/phoneBook.html', function (data) {
       			console.log(data);
             template = _.template(data);
-            template.collection = [1,2,3,5];
-            $(self.el).html(template);  
+            $(self.el).html(template({collection : phoneBook.toJSON()}));  
         }, 'html');
       }
     });
 
 		var x = new PhoneBookView();
-		x.render();
 
 
   </script>
