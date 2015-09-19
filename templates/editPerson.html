@@ -1,12 +1,10 @@
-<form action="">
-	<span id="id">
-		<%= person.id %>
-	</span>
+<form action="../api2.php" method="post">
+	<input readonly type="number" id="id" value="<%= person.id %>" name="personId">	
 	<label>Name
-		<input type="text" id="personName" value="<%= person.name %>">
+		<input type="text" id="personName" name="personName" value="<%= person.name %>">
 	</label>
 	<label>Telephone
-		<input type="text" id="personName" value="<%= person.tel %>">
+		<input type="text" id="personTel" name="personTel" value="<%= person.tel %>">
 	</label>
-	<input type="submit" value="Save">
+	<input type="submit" class="action-save-submit" value="Save">
 </form>

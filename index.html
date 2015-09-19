@@ -16,14 +16,19 @@
   	var Person = Backbone.Model.extend({});
   	var PhoneBook = Backbone.Collection.extend({
   		model : Person,
-  		url : 'js/phonebook.json'
+  		url : 'js/phonebook.json',
+      syncCollection : function() {
+          Backbone.sync('update', this);
+        }
   	});
 
   	var phoneBook = new PhoneBook;
 
   	phoneBook.fetch({reset : true});
 
-		phoneBook.bind('reset', function () { console.log(phoneBook); });
+		phoneBook.bind('reset', function () { console.log('phoneBook'); });
+
+
 
 		var PhoneBookView = Backbone.View.extend({
       el: "body",
@@ -43,26 +48,27 @@
         }, 'html');
       },
       editPerson : function(e) {
-        console.log($(e.currentTarget).data('id'))
-
         new EditPersonView({
           id : $(e.currentTarget).data('id')
         });
       }
     });
 
+
+
     var EditPersonView = Backbone.View.extend({
       el: 'body',
       initialize : function(params){
-        console.log('params', params);
         var self = this;
         for (param in params) this[param] = params[param];
         self.render();
       },
+      events : {
+        'click .action-save-submit' : 'saveSubmit'
+      },
       render: function(e) {
         var self = this;
 
-        console.log(self.id);
         var person = phoneBook.get(self.id);
 
         $.get('templates/editPerson.html', function (data) {
@@ -70,10 +76,21 @@
             $(self.el).html(template({person : person.toJSON()}));  
         }, 'html');
       },
+      saveSubmit : function(e) {
+        //
+        console.log('save');
+        phoneBook.fetch({data:{
+          id:$('#id').text(),
+          name:$('#personName').val(),
+          tel:$('#personTel').val()
+        },type:'POST' });
+
+        console.log('PB', phoneBook);
+      }
     });
 
 
-    new MainRouter();
+    var router = new MainRouter();
     Backbone.history.start({pushState: false});
 
 
