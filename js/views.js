@@ -79,6 +79,6 @@ var EditPersonView = Backbone.View.extend({
 });
 
 var router = new MainRouter();
-Backbone.history.start({pushState: false});
+Backbone.history.start();
 
 
