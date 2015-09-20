@@ -34,9 +34,6 @@
         var self = this;
         self.render();
       },
-      events : {
-        'click .action-edit-person' : 'editPerson'
-      },
       render: function(e) {
         var self = this;
 
@@ -44,11 +41,6 @@
             template = _.template(data);
             $(self.el).html(template({collection : phoneBook.toJSON()}));  
         }, 'html');
-      },
-      editPerson : function(e) {
-        new EditPersonView({
-          id : $(e.currentTarget).data('id')
-        });
       }
     });
 
@@ -88,7 +80,9 @@
           tel:changeModel.get('tel')
         };
 
-        Backbone.ajax = $.post(changeModel.url, data);
+        $.post(changeModel.url, data, function(){
+          router.navigate('', true);
+        });
         //Backbone.sync('update', changeModel);
       }
     });

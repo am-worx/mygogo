@@ -2,8 +2,10 @@
 <ul>
 	<% _.each(collection, function(person) { %>
 		<li class="action-edit-person" data-id="<%= person.id %>" >
-			<%= person.name %> <br>
-			<%= person.tel %>
+			<a href="/#edit/<%= person.id %>">
+				<%= person.name %> <br>
+				<%= person.tel %>
+			</a>
 		</li>
 	<% }) %>
 </ul>
