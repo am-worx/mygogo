@@ -11,8 +11,6 @@ var phoneBook = new PhoneBook;
 
 phoneBook.fetch({reset : true});
 
-//phoneBook.bind('reset', function () { console.log('phoneBook'); });
-
 var PhoneBookView = Backbone.View.extend({
   el: "body",
   initialize : function(){
@@ -26,6 +24,8 @@ var PhoneBookView = Backbone.View.extend({
         template = _.template(data);
         $(self.el).html(template({collection : phoneBook.toJSON()}));  
     }, 'html');
+
+    return this;
   }
 });
 
@@ -46,11 +46,12 @@ var EditPersonView = Backbone.View.extend({
     //console.log('PhBoo', phoneBook, phoneBook.get(2), person);
     var person = (phoneBook.get(self.id)).toJSON();
     
-
     $.get('templates/editPerson.html', function (data) {
         template = _.template(data);
         $(self.el).html(template({person : person}));  
     }, 'html');
+
+    return this;
   },
   cancel : function() {
     router.navigate('', true);

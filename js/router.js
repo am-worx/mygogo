@@ -6,11 +6,11 @@ var MainRouter = Backbone.Router.extend({
   },
 
   goPhoneBook: function() {
-    new PhoneBookView();
+    this.curView = new PhoneBookView();
   },
   goEditPerson: function(id) {
     setTimeout(function(){
-       new EditPersonView({id : id});
+      this.curView = new EditPersonView({id : id});
     }, 0)
 
     // new EditPersonView({id : id});
