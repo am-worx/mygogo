@@ -22,7 +22,7 @@ var PhoneBookView = Backbone.View.extend({
 
   	$.get('templates/phoneBook.html', function (data) {
         template = _.template(data);
-        $(self.el).html(template({collection : phoneBook.toJSON()}));  
+        self.$el.html(template({collection : phoneBook.toJSON()}));  
     }, 'html');
 
     return this;
@@ -43,12 +43,11 @@ var EditPersonView = Backbone.View.extend({
   render: function(e) {
     var self = this;
 
-    //console.log('PhBoo', phoneBook, phoneBook.get(2), person);
     var person = (phoneBook.get(self.id)).toJSON();
     
     $.get('templates/editPerson.html', function (data) {
         template = _.template(data);
-        $(self.el).html(template({person : person}));  
+        self.$el.html(template({person : person}));  
     }, 'html');
 
     return this;
@@ -57,6 +56,8 @@ var EditPersonView = Backbone.View.extend({
     router.navigate('', true);
   },
   saveChanges : function(e) {
+  var self = this;
+
     e.preventDefault();
     console.log('save zombie');
 
