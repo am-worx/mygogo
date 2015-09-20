@@ -3,12 +3,11 @@ var Person = Backbone.Model.extend({
 });
 var PhoneBook = Backbone.Collection.extend({
 	model : Person,
-	url : 'js/phonebook.json',
+	url : 'js/phonebook.json'
   //url : 'api.php'
 });
 
 var phoneBook = new PhoneBook;
-
 phoneBook.fetch({reset : true});
 
 var PhoneBookView = Backbone.View.extend({
@@ -77,8 +76,9 @@ var EditPersonView = Backbone.View.extend({
     //Backbone.sync('update', changeModel);
   }
 });
-this.mainView = new PhoneBookView()
-var router = new MainRouter();
+
+var mainView = new PhoneBookView(),
+    router = new MainRouter();
 Backbone.history.start();
 
 

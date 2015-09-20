@@ -1,8 +1,8 @@
+<h1>Phone Book</h1>
 <div id="phoneBookApp">
-	<h1>Phone Book</h1>
 	<ul>
 		<% _.each(collection, function(person) { %>
-			<li class="action-edit-person" data-id="<%= person.id %>" >
+			<li class="action-edit-person" style="margin-bottom: 10px;">
 				<a href="/#edit/<%= person.id %>">
 					<%= person.name %> <br>
 					<%= person.tel %>
