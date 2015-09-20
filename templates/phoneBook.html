@@ -1,11 +1,13 @@
-<h1>Phone Book</h1>
-<ul>
-	<% _.each(collection, function(person) { %>
-		<li class="action-edit-person" data-id="<%= person.id %>" >
-			<a href="/#edit/<%= person.id %>">
-				<%= person.name %> <br>
-				<%= person.tel %>
-			</a>
-		</li>
-	<% }) %>
-</ul>
+<div class="phv">
+	<h1>Phone Book</h1>
+	<ul>
+		<% _.each(collection, function(person) { %>
+			<li class="action-edit-person" data-id="<%= person.id %>" >
+				<a href="/#edit/<%= person.id %>">
+					<%= person.name %> <br>
+					<%= person.tel %>
+				</a>
+			</li>
+		<% }) %>
+	</ul>
+</div>

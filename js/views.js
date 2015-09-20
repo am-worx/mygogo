@@ -30,7 +30,7 @@ var PhoneBookView = Backbone.View.extend({
 });
 
 var EditPersonView = Backbone.View.extend({
-  el: 'body',
+  el: '.phv',
   initialize : function(params){
     var self = this;
     for (param in params) this[param] = params[param];
@@ -59,7 +59,7 @@ var EditPersonView = Backbone.View.extend({
   var self = this;
 
     e.preventDefault();
-    console.log('save zombie');
+    console.log('save zombies');
 
     var changeModel = phoneBook.get($('#personId').val());
 
@@ -79,7 +79,7 @@ var EditPersonView = Backbone.View.extend({
     //Backbone.sync('update', changeModel);
   }
 });
-
+this.mainView = new PhoneBookView()
 var router = new MainRouter();
 Backbone.history.start();
 
